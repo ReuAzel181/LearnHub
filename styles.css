@@ -1,0 +1,21 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .module {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .module img {
+    max-width: 100px;
+    height: auto;
+  }
+  
+  #calendar {
+    /* Calendar styles */
+  }
+  
