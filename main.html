@@ -10,13 +10,17 @@
   <div class="container">
     <h1>LearnHub: Learning Module Library</h1>
     <div id="modules"></div>
-    <form id="moduleForm" action="process.php" method="POST">
+    <form id="moduleForm">
         <input type="text" id="moduleName" placeholder="Module Name" required>
         <input type="text" id="thumbnailUrl" placeholder="Thumbnail URL" required>
+        <textarea id="note" placeholder="Note"></textarea>
         <button type="submit">Add Module</button>
     </form>
-  </div>
-  <div id="calendar"></div>
+    <div id="savedFiles"></div>
+</div>
+<div id="calendar"></div>
+
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root"; // Default username for XAMPP
-$password = ""; // Default password for XAMPP
+$username = "root"; 
+$password = ""; 
 $dbname = "learnhub_db";
 
 // Create connection
