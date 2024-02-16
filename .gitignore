@@ -1,0 +1,17 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore any files in the dist directory
+dist/
+
+# Ignore any files in the vendor directory
+vendor/
+
+# Ignore any .log files
+*.log
+
+# Ignore any .tmp files
+*.tmp
+
+# Ignore any .bak files
+*.bak

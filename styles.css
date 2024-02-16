@@ -1,57 +1,41 @@
-body {
-  color: blue;
+.savedFile {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .module {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
-  .module img {
-    max-width: 100px;
-    height: auto;
-  }
-  .savedFile {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.savedFile:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .savedFile img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .savedFile h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #333;
+  margin: 0;
+  font-size: 1.2em;
+  color: #343a40; /* Dark gray text */
 }
 
 .savedFile p {
-    margin: 5px 0 0 0;
-    font-size: 1em;
-    color: #777;
+  margin: 5px 0 0 0;
+  font-size: 1em;
+  color: #6c757d; /* Light gray text */
 }
 
 .savedFile hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 10px 0;
+  border: none;
+  border-top: 1px solid #e9ecef; /* Lighter gray divider */
+  margin: 10px 0;
 }
