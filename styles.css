@@ -19,3 +19,39 @@ body {
     max-width: 100px;
     height: auto;
   }
+  .savedFile {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.savedFile img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.savedFile h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.savedFile p {
+    margin: 5px 0 0 0;
+    font-size: 1em;
+    color: #777;
+}
+
+.savedFile hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
