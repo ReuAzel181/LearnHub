@@ -8,6 +8,21 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
+/* Add styles for the delete button */
+.savedFile .deleteButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Add hover effect */
+.savedFile .deleteButton:hover {
+  background-color: #c82333;
+}
 
 .savedFile:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);

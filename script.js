@@ -17,7 +17,6 @@ moduleForm.addEventListener('submit', (event) => {
 
     displaySavedFiles();
 });
-
 function displaySavedFiles() {
     savedFilesContainer.innerHTML = '';
 
@@ -46,16 +45,16 @@ function displaySavedFiles() {
         noteElement.textContent = `Note: ${file.note}`;
         fileElement.appendChild(noteElement);
 
-        // Delete icon
-        const deleteIcon = document.createElement('span');
-        deleteIcon.classList.add('deleteIcon');
-        deleteIcon.innerHTML = '&times;';
-        deleteIcon.addEventListener('click', () => {
-            savedFiles = savedFiles.filter((f, i) => i !== index);
-            localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+        // Delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('deleteButton');
+        deleteButton.addEventListener('click', () => {
+            savedFiles.splice(index, 1);
+            localStorage.setItem('savedFiles', JSON.stringify(savedFiles));
             displaySavedFiles();
         });
-        fileElement.appendChild(deleteIcon);
+        fileElement.appendChild(deleteButton);
 
         savedFilesContainer.appendChild(fileElement);
 
