@@ -4,19 +4,53 @@ let savedFiles = JSON.parse(localStorage.getItem(savedFilesKey)) || [];
 
 displaySavedFiles();
 
-moduleForm.addEventListener('submit', (event) => {
+document.getElementById('moduleForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const moduleName = document.getElementById('moduleName').value;
-    const thumbnailUrl = document.getElementById('thumbnailUrl').value;
-    const note = document.getElementById('note').value;
+    const moduleName = document.getElementById('name').value.trim();
+    const thumbnailUrl = document.getElementById('icon').value.trim();
+    const note = document.getElementById('note').value.trim();
 
-    savedFiles.push({ name: moduleName, thumbnailUrl: thumbnailUrl, note: note });
+    if (!moduleName || !thumbnailUrl || !note) {
+        alert('Please fill in all fields');
+        return;
+    }
 
-    localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+    try {
+        const response = await fetch('process.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `name=${encodeURIComponent(moduleName)}&icon=${encodeURIComponent(thumbnailUrl)}&note=${encodeURIComponent(note)}`
+        });
 
-    displaySavedFiles();
+        if (!response.ok) {
+            throw new Error('Failed to add module');
+        }
+
+        const result = await response.json();
+        console.log('Server response:', result);
+
+        if (result.success) {
+            alert('Module added successfully');
+            savedFiles.push({ name: moduleName, thumbnailUrl: thumbnailUrl, note: note });
+            localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+            displaySavedFiles();
+        } else {
+            alert('Failed to add module. Please try again.');
+        }
+
+        // Reset form fields after successful submission
+        document.getElementById('name').value = '';
+        document.getElementById('icon').value = '';
+        document.getElementById('note').value = '';
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to add module. Please try again.');
+    }
 });
+
 function displaySavedFiles() {
     savedFilesContainer.innerHTML = '';
 
@@ -51,7 +85,7 @@ function displaySavedFiles() {
         deleteButton.classList.add('deleteButton');
         deleteButton.addEventListener('click', () => {
             savedFiles.splice(index, 1);
-            localStorage.setItem('savedFiles', JSON.stringify(savedFiles));
+            localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
             displaySavedFiles();
         });
         fileElement.appendChild(deleteButton);
