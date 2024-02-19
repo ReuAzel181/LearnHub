@@ -1,6 +1,7 @@
 .savedFile {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Align items to start and end of the container */
   padding: 15px;
   margin-bottom: 15px;
   background-color: #f8f9fa; /* Light gray background */
@@ -8,20 +9,20 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
+
 /* Add styles for the delete button */
 .savedFile .deleteButton {
   background-color: #dc3545;
   color: white;
   border: none;
   padding: 5px 10px;
-  margin-left: 10px;
   cursor: pointer;
   border-radius: 5px;
 }
 
 /* Add hover effect */
 .savedFile .deleteButton:hover {
-  background-color: #c82333;
+  background-color: #8d2530;
 }
 
 .savedFile:hover {
