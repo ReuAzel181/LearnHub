@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = [];
     if ($stmt->execute()) {
         $response['success'] = true;
+        $response['id'] = $conn->insert_id; // Return the ID of the inserted row
         $response['message'] = 'New module created successfully';
     } else {
         $response['success'] = false;
@@ -36,18 +37,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Close statement
     $stmt->close();
+
+    // Return JSON response
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit; // Stop further execution
 }
 
 // Check if the request is for deleting a module
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Get the module name to delete
     parse_str(file_get_contents("php://input"), $_DELETE);
-    $moduleName = $_DELETE['name'] ?? '';
-    
-    // Prepare and bind the statement for deleting a module
-    $stmt = $conn->prepare("DELETE FROM modules WHERE name = ?");
-    $stmt->bind_param("s", $moduleName);
-    
+    $moduleId = $_GET['id'] ?? '';
+
+    // Prepare and bind the statement for deleting a module by ID
+    $stmt = $conn->prepare("DELETE FROM modules WHERE id = ?");
+    $stmt->bind_param("i", $moduleId);
+
     // Delete module from database
     $response = [];
     if ($stmt->execute()) {
@@ -57,15 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $response['success'] = false;
         $response['message'] = 'Failed to delete module: ' . $stmt->error;
     }
-    
+
     // Close statement
     $stmt->close();
+
+    // Return JSON response
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit; // Stop further execution
 }
-
-// Close connection
-$conn->close();
-
-// Return JSON response
-header('Content-Type: application/json');
-echo json_encode($response);
 ?>
