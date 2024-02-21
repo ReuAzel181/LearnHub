@@ -18,10 +18,18 @@ function createModal(moduleName, thumbnailUrl, note, index, onDelete) {
   `;
 
   const deleteButton = document.createElement('button');
+  
 
+  // Delete button to dapat sa modals
 
+  // deleteButton.textContent = 'Delete';
+  // deleteButton.classList.add('deleteButton');
+  // deleteButton.addEventListener('click', () => {
+  //   onDelete(index); // Call the onDelete callback with the index
+  //   modalOverlay.remove(); // Remove the modal
+  // });
 
-
+  // modalContent.querySelector('.modal-header').appendChild(deleteButton);
 
   modalOverlay.appendChild(modalContent);
   document.body.appendChild(modalOverlay);

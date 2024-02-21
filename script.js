@@ -52,6 +52,7 @@ document.getElementById('moduleForm').addEventListener('submit', async (event) =
         alert('Failed to add module. Please try again.');
     }
 });
+
 function displaySavedFiles() {
     savedFilesContainer.innerHTML = '';
 
@@ -82,25 +83,25 @@ function displaySavedFiles() {
         noteElement.textContent = `${file.note}`;
         fileElement.appendChild(noteElement);
 
-        // Delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('deleteButton');
-        deleteButton.addEventListener('click', (event) => {
-            event.stopPropagation(); // Stop the click event from propagating to the parent element
-            savedFiles.splice(index, 1);
-            localStorage.setItem('savedFiles', JSON.stringify(savedFiles));
-            displaySavedFiles();
-        });
-        fileElement.appendChild(deleteButton);
+            // Delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Dellete';
+            deleteButton.classList.add('deleteButton');
+            deleteButton.addEventListener('click', (event) => {
+                event.stopPropagation(); // Stop the click event from propagating to the parent element
+                savedFiles.splice(index, 1);
+                localStorage.setItem('savedFiles', JSON.stringify(savedFiles));
+                displaySavedFiles();
+            });
+            fileElement.appendChild(deleteButton);
 
-        fileElement.addEventListener('click', () => {
-        const moduleName = fileElement.dataset.name;
-        const thumbnailUrl = fileElement.dataset.icon;
-        const note = fileElement.dataset.note;
+            fileElement.addEventListener('click', () => {
+            const moduleName = fileElement.dataset.name;
+            const thumbnailUrl = fileElement.dataset.icon;
+            const note = fileElement.dataset.note;
 
-        createModal(moduleName, thumbnailUrl, note, true); // Pass true to show the delete button
-        });
+            createModal(moduleName, thumbnailUrl, note, true); // Pass true to show the delete button
+            });
 
 
         savedFilesContainer.appendChild(fileElement);
