@@ -1,3 +1,14 @@
+#Title {
+  position: fixed;
+  top: -30px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  z-index: 1000; /* Ensure it's above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better contrast */
+}
+
 .savedFile {
   position: relative; /* Add position relative to the parent container */
   display: flex;
