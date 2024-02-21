@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LearnHub</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="modal.css">
 </head>
 <body>
   <div class="container">
@@ -18,10 +19,19 @@
     </form>
     <div id="savedFiles"></div>
   </div>
-  
-  
   <div id="calendar"></div>
+
+  <!-- Modal HTML -->
+  <div id="moduleModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <img id="modalImage" src="" alt="">
+      <p id="modalNote"></p>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script src="modal.js"></script>
 </body>
 </html>
-  
