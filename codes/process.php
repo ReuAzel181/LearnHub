@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the request is for adding or deleting a module
+// Check if the request is for adding a module
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $name = $_POST['name'] ?? '';
@@ -36,14 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Close statement
     $stmt->close();
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
-    // Get the module name to delete
-    $moduleName = $_POST['name'] ?? '';
+}
 
+// Check if the request is for deleting a module
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    // Get the module name to delete
+    parse_str(file_get_contents("php://input"), $_DELETE);
+    $moduleName = $_DELETE['name'] ?? '';
+    
     // Prepare and bind the statement for deleting a module
     $stmt = $conn->prepare("DELETE FROM modules WHERE name = ?");
     $stmt->bind_param("s", $moduleName);
-
+    
     // Delete module from database
     $response = [];
     if ($stmt->execute()) {
@@ -53,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response['success'] = false;
         $response['message'] = 'Failed to delete module: ' . $stmt->error;
     }
-
+    
     // Close statement
     $stmt->close();
 }
@@ -64,5 +68,4 @@ $conn->close();
 // Return JSON response
 header('Content-Type: application/json');
 echo json_encode($response);
-
 ?>

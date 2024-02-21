@@ -52,7 +52,6 @@ document.getElementById('moduleForm').addEventListener('submit', async (event) =
         alert('Failed to add module. Please try again.');
     }
 });
-
 function displaySavedFiles() {
     savedFilesContainer.innerHTML = '';
 
@@ -68,7 +67,7 @@ function displaySavedFiles() {
         imgElement.src = file.thumbnailUrl;
         imgElement.alt = `${file.name}`;
         imgElement.onerror = function() {
-            imgElement.src = 'images/download.png'; // Use a placeholder image
+            imgElement.src = '../images/download.png'; // Use a placeholder image
             imgElement.alt = 'Placeholder Image';
         };
         fileElement.appendChild(imgElement);
@@ -83,26 +82,53 @@ function displaySavedFiles() {
         noteElement.textContent = `${file.note}`;
         fileElement.appendChild(noteElement);
 
-            // Delete button
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Dellete';
-            deleteButton.classList.add('deleteButton');
-            deleteButton.addEventListener('click', (event) => {
-                event.stopPropagation(); // Stop the click event from propagating to the parent element
-                savedFiles.splice(index, 1);
-                localStorage.setItem('savedFiles', JSON.stringify(savedFiles));
-                displaySavedFiles();
-            });
-            fileElement.appendChild(deleteButton);
+        // Delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('deleteButton');
+        deleteButton.addEventListener('click', async (event) => {
+            event.stopPropagation(); // Stop the click event from propagating to the parent element
 
-            fileElement.addEventListener('click', () => {
+            const moduleName = fileElement.dataset.name;
+
+            try {
+                const response = await fetch('process.php', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `name=${encodeURIComponent(moduleName)}`
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete module');
+                }
+
+                const result = await response.json();
+                console.log('Server response:', result);
+
+                if (result.success) {
+                    alert('Module deleted successfully');
+                    savedFiles.splice(index, 1);
+                    localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+                    displaySavedFiles();
+                } else {
+                    alert('Failed to delete module. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to delete module. Please try again.');
+            }
+        });
+        fileElement.appendChild(deleteButton);
+
+        fileElement.addEventListener('click', () => {
             const moduleName = fileElement.dataset.name;
             const thumbnailUrl = fileElement.dataset.icon;
             const note = fileElement.dataset.note;
 
             createModal(moduleName, thumbnailUrl, note, true); // Pass true to show the delete button
-            });
-
+        });
 
         savedFilesContainer.appendChild(fileElement);
 
