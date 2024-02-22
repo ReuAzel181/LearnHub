@@ -12,7 +12,7 @@ function createModal(moduleName, thumbnailUrl, note, index, onDelete) {
       <h2>${moduleName}</h2>
     </div>
     <div class="modal-body">
-      <img src="${thumbnailUrl}" alt="${moduleName} thumbnail">
+      <img src="${thumbnailUrl}" alt="${moduleName}">
       <p>${note}</p>
     </div>
   `;

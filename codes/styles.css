@@ -1,13 +1,41 @@
 #Title {
-  position: fixed;
-  top: -30px;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  padding: 20px;
-  z-index: 1000; /* Ensure it's above other content */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better contrast */
+  text-align: center; /* Center the text */
+  margin-top: 20px; /* Add some space above the title */
+  margin-bottom: 20px; /* Add some space below the title */
 }
+
+.container {
+  max-width: 800px; /* Limit the width of the container */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding inside the container */
+}
+
+#moduleForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add some space between form elements */
+}
+
+#moduleForm input[type="text"],
+#moduleForm textarea {
+  width: 100%; /* Make inputs and textarea full width */
+  padding: 5px; /* Add some padding */
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+#moduleForm button {
+  width: 100%; /* Make button full width */
+  padding: 10px; /* Add padding */
+  background-color: #007bff; /* Blue background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Add cursor pointer on hover */
+}
+
+#moduleForm button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
 
 .savedFile {
   position: relative; /* Add position relative to the parent container */
