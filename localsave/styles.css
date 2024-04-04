@@ -1,55 +1,61 @@
-/* Other Styles */
-#Title {
-    text-align: center; /* Center the text */
-    margin-top: 20px; /* Add some space above the title */
-    margin-bottom: 20px; /* Add some space below the title */
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+  }
+  
+  .content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .left-container {
+    flex: 1;
+    padding-right: 10px;
+  }
+  
+  .right-container {
+    flex: 1;
+    padding-left: 10px;
+  }
+  
+  /* Other Styles */
+  #Title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   #moduleForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 20px;
   }
   
-  
   #moduleForm input[type="text"],
   #moduleForm textarea {
-    width: 100%; /* Make inputs and textarea full width */
-    padding: 5px; /* Add some padding */
-    box-sizing: border-box; /* Include padding in the width */
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
   }
   
   #moduleForm button {
-    width: 100%; /* Make button full width */
-    padding: 10px; /* Add padding */
-    background-color: #007bff; /* Blue background color */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    cursor: pointer; /* Add cursor pointer on hover */
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
   }
   
   #moduleForm button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
   }
   
-  
   .savedFile {
-    position: relative; /* Add position relative to the parent container */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -61,7 +67,6 @@
     transition: box-shadow 0.3s ease;
   }
   
-  /* Add styles for the delete button */
   .savedFile .deleteButton {
     background-color: #dc3545;
     color: white;
@@ -69,14 +74,12 @@
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
-    margin-left: auto; /* Pushes the button to the right */
+    margin-left: auto;
   }
   
-  /* Add hover effect */
   .savedFile .deleteButton:hover {
     background-color: #8d2530;
   }
-  .savedFile
   
   .savedFile img {
     width: 100px;
@@ -103,5 +106,35 @@
     border: none;
     border-top: 1px solid #e9ecef;
     margin: 10px 0;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    max-height: 80%;
+    overflow:auto;
+    position: relative;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
   }
   
