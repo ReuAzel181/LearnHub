@@ -1,0 +1,107 @@
+/* Other Styles */
+#Title {
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Add some space above the title */
+    margin-bottom: 20px; /* Add some space below the title */
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  #moduleForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  
+  #moduleForm input[type="text"],
+  #moduleForm textarea {
+    width: 100%; /* Make inputs and textarea full width */
+    padding: 5px; /* Add some padding */
+    box-sizing: border-box; /* Include padding in the width */
+  }
+  
+  #moduleForm button {
+    width: 100%; /* Make button full width */
+    padding: 10px; /* Add padding */
+    background-color: #007bff; /* Blue background color */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Add cursor pointer on hover */
+  }
+  
+  #moduleForm button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  
+  .savedFile {
+    position: relative; /* Add position relative to the parent container */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Add styles for the delete button */
+  .savedFile .deleteButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: auto; /* Pushes the button to the right */
+  }
+  
+  /* Add hover effect */
+  .savedFile .deleteButton:hover {
+    background-color: #8d2530;
+  }
+  .savedFile
+  
+  .savedFile img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .savedFile h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #343a40;
+  }
+  
+  .savedFile p {
+    margin: 5px 0 0 0;
+    font-size: 1em;
+    color: #6c757d;
+  }
+  
+  .savedFile hr {
+    border: none;
+    border-top: 1px solid #e9ecef;
+    margin: 10px 0;
+  }
+  
