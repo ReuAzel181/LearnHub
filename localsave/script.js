@@ -72,7 +72,37 @@ function displaySavedFiles() {
 
         savedFilesContainer.appendChild(fileElement);
 
-        const divider = document.createElement('hr');
-        savedFilesContainer.appendChild(divider);
+
     });
 }
+
+// JavaScript
+thumbnailDropzone.addEventListener('dragover', function(event) {
+    event.preventDefault();
+    if (event.target.id === 'icon') {
+        thumbnailDropzone.classList.add('active');
+    }
+});
+
+thumbnailDropzone.addEventListener('dragleave', function(event) {
+    event.preventDefault();
+    if (event.target.id === 'icon') {
+        thumbnailDropzone.classList.remove('active');
+    }
+});
+
+thumbnailDropzone.addEventListener('drop', function(event) {
+    event.preventDefault();
+    thumbnailDropzone.classList.remove('active');
+
+    const droppedFile = event.dataTransfer.files[0];
+    if (droppedFile.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const thumbnailUrl = reader.result;
+            document.getElementById('icon').value = thumbnailUrl; // Set the input value to the thumbnail URL
+        };
+        reader.readAsDataURL(droppedFile); // Convert the dropped file to a data URL
+    }
+});
+

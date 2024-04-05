@@ -15,11 +15,13 @@
       <div class="left-container">
         <form id="moduleForm">
           <input type="text" id="name" name="name" placeholder="Module Name" required>
-          <input type="text" id="icon" name="icon" placeholder="Thumbnail URL" required>
+          <div id="thumbnailDropzone" class="dropzone">
+            <p>Drag & Drop Images Here or Enter Image URL:</p>
+            <input type="text" id="icon" name="icon" placeholder="Thumbnail URL">
+          </div>
           <textarea id="note" name="note" placeholder="Note"></textarea>
           <button type="submit">Add Module</button>
         </form>
-        <div id="savedFiles"></div>
       </div>
       <div class="right-container">
         <div id="calendar">
@@ -27,6 +29,7 @@
         </div>
       </div>
     </div>
+    <div class="savedFiles-container" id="savedFiles"></div>
   </div>
 
   <!-- Modal HTML -->
