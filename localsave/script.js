@@ -33,50 +33,51 @@ function displaySavedFiles() {
     savedFilesContainer.innerHTML = '';
 
     savedFiles.forEach((file, index) => {
-        const fileElement = document.createElement('div');
-        fileElement.classList.add('savedFile');
-        fileElement.dataset.id = file.id;
-
-        const imgElement = document.createElement('img');
-        imgElement.src = file.thumbnailUrl;
-        imgElement.alt = `${file.name}`;
-        imgElement.onerror = function() {
-            imgElement.src = '../images/download.png';
-            imgElement.alt = 'Placeholder Image';
-        };
-        fileElement.appendChild(imgElement);
-
-        const titleElement = document.createElement('h3');
-        titleElement.textContent = file.name;
-        fileElement.appendChild(titleElement);
-
-        const noteElement = document.createElement('p');
-        noteElement.textContent = `${file.note}`;
-        fileElement.appendChild(noteElement);
-
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('deleteButton');
-        deleteButton.addEventListener('click', () => {
-            savedFiles = savedFiles.filter(savedFile => savedFile.id !== file.id);
-            localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
-            displaySavedFiles();
-            alert('Module deleted successfully');
-        });
-
-        fileElement.appendChild(deleteButton);
-
-        fileElement.addEventListener('click', () => {
-            createModal(file.name, file.thumbnailUrl, file.note, true);
-        });
-
+        const fileElement = createFileElement(file);
         savedFilesContainer.appendChild(fileElement);
-
-
     });
 }
 
-// JavaScript
+function createFileElement(file) {
+    const fileElement = document.createElement('div');
+    fileElement.classList.add('savedFile');
+    fileElement.dataset.id = file.id;
+
+    const imgElement = document.createElement('img');
+    imgElement.src = file.thumbnailUrl;
+    imgElement.alt = file.name;
+    imgElement.onerror = function() {
+        imgElement.src = '../images/download.png';
+        imgElement.alt = 'Placeholder Image';
+    };
+    fileElement.appendChild(imgElement);
+
+    const titleElement = document.createElement('h3');
+    titleElement.textContent = file.name;
+    fileElement.appendChild(titleElement);
+
+    const noteElement = document.createElement('p');
+    noteElement.textContent = file.note;
+    fileElement.appendChild(noteElement);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('deleteButton');
+    deleteButton.addEventListener('click', () => {
+        savedFiles = savedFiles.filter(savedFile => savedFile.id !== file.id);
+        localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+        displaySavedFiles();
+        alert('Module deleted successfully');
+    });
+    fileElement.appendChild(deleteButton);
+
+    fileElement.addEventListener('click', () => {
+        createModal(file.name, file.thumbnailUrl, file.note, true);
+    });
+
+    return fileElement;
+}
+
 thumbnailDropzone.addEventListener('dragover', function(event) {
     event.preventDefault();
     if (event.target.id === 'icon') {
@@ -100,9 +101,8 @@ thumbnailDropzone.addEventListener('drop', function(event) {
         const reader = new FileReader();
         reader.onload = function() {
             const thumbnailUrl = reader.result;
-            document.getElementById('icon').value = thumbnailUrl; // Set the input value to the thumbnail URL
+            document.getElementById('icon').value = thumbnailUrl;
         };
-        reader.readAsDataURL(droppedFile); // Convert the dropped file to a data URL
+        reader.readAsDataURL(droppedFile);
     }
 });
-
