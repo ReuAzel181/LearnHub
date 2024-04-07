@@ -1,0 +1,119 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #495057;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  
+  .content-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  /* Form styles */
+  #moduleForm {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+  
+  #moduleForm input[type="text"],
+  #moduleForm textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  #moduleForm textarea#note {
+    height: 150px;
+  }
+  
+  #moduleForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  #moduleForm button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Saved files styles */
+  .savedFiles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .savedFile {
+    position: relative;
+    width: 100%;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  
+  .savedFile:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
+  
+  .savedFile img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .savedFile h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+  
+  .savedFile p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #6c757d;
+  }
+  
+  .savedFile .deleteButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .savedFile .deleteButton:hover {
+    background-color: #8d2530;
+    transform: scale(1.1);
+  }
+  
