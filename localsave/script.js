@@ -60,6 +60,14 @@ function createFileElement(file) {
     noteElement.textContent = file.note;
     fileElement.appendChild(noteElement);
 
+    const editIcon = document.createElement('span');
+    editIcon.textContent = '✎';
+    editIcon.classList.add('edit-icon');
+    editIcon.addEventListener('click', () => {
+        openEditModal(file.id);
+    });
+    fileElement.appendChild(editIcon);
+
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('deleteButton');
@@ -71,30 +79,31 @@ function createFileElement(file) {
     });
     fileElement.appendChild(deleteButton);
 
-    fileElement.addEventListener('click', () => {
-        createModal(file.name, file.thumbnailUrl, file.note, true);
-    });
-
     return fileElement;
 }
 
+const thumbnailDropzone = document.getElementById('thumbnailDropzone');
+
 thumbnailDropzone.addEventListener('dragover', function(event) {
     event.preventDefault();
-    if (event.target.id === 'icon') {
-        thumbnailDropzone.classList.add('active');
+    if (event.target.id === 'icon' && event.dataTransfer.types.includes('Files')) {
+        const file = event.dataTransfer.files[0];
+        if (file.type.startsWith('image/')) {
+            thumbnailDropzone.classList.add('dragover');
+        }
     }
 });
 
 thumbnailDropzone.addEventListener('dragleave', function(event) {
     event.preventDefault();
     if (event.target.id === 'icon') {
-        thumbnailDropzone.classList.remove('active');
+        thumbnailDropzone.classList.remove('dragover');
     }
 });
 
 thumbnailDropzone.addEventListener('drop', function(event) {
     event.preventDefault();
-    thumbnailDropzone.classList.remove('active');
+    thumbnailDropzone.classList.remove('dragover');
 
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile.type.startsWith('image/')) {
@@ -106,3 +115,36 @@ thumbnailDropzone.addEventListener('drop', function(event) {
         reader.readAsDataURL(droppedFile);
     }
 });
+
+function openEditModal(noteId) {
+    const file = savedFiles.find(file => file.id === noteId);
+    if (!file) return;
+
+    const editNoteTextarea = document.getElementById('editNoteTextarea');
+    editNoteTextarea.value = file.note;
+
+    const saveEditButton = document.getElementById('saveEditButton');
+    saveEditButton.onclick = () => {
+        const editedNote = editNoteTextarea.value.trim();
+        if (!editedNote) {
+            alert('Please enter a note.');
+            return;
+        }
+        file.note = editedNote;
+        localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+        displaySavedFiles();
+        closeModal('editModal');
+    };
+
+    openModal('editModal');
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'none';
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'block';
+}

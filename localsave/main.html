@@ -31,7 +31,14 @@
   </div>
 
   <!-- Modal HTML -->
-  <div id="moduleModal" class="modal"></div>
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('editModal')">&times;</span>
+      <h2>Edit Note</h2>
+      <textarea id="editNoteTextarea" rows="6" cols="50"></textarea>
+      <button id="saveEditButton">Save</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
