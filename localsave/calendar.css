@@ -1,11 +1,11 @@
 .calendar-container {
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5px;
 }
 
 #calendar {
- 
   min-width: 250px; /* Adjust the minimum width as needed */
   min-height: 150px; /* Adjust the minimum height as needed */
   max-width: 100%;
@@ -14,6 +14,12 @@
   border-radius: 8px;
   padding: 5px;
   overflow: auto;
+  transition: all 0.3s ease; /* Smooth transitions for any changes */
+}
+
+#calendar:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 }
 
 @media (min-width: 768px) {
