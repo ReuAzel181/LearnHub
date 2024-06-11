@@ -244,7 +244,6 @@ button:hover {
 .custom-dropdown {
   position: relative;
   display: inline-block;
-  width: 200px;
 }
 
 .dropdown-selected {
@@ -256,22 +255,27 @@ button:hover {
   align-items: center; /* Vertically center items */
 }
 
+.open .dropdown-list {
+  display: block;
+}
 .dropdown-list {
+  display: none;
   position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   background-color: #fff;
   border: 1px solid #ccc;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
-  display: none;
-  z-index: 1;
+  border-top: none;
 }
 
 .category-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-between; /* Align items to the left and right */
-  padding: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer; /* Add this line to change cursor style */
 }
 
 .category-name {
@@ -285,6 +289,14 @@ button:hover {
 .delete-icon {
   margin-left: 10px;
   cursor: pointer;
+}
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer; /* Add this line to change cursor style */
 }
 
 

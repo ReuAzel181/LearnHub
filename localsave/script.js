@@ -1,50 +1,74 @@
-const savedFilesContainer = document.getElementById('savedFiles');
-const savedFilesKey = 'savedFiles';
-let savedFiles = JSON.parse(localStorage.getItem(savedFilesKey)) || [];
+document.addEventListener('DOMContentLoaded', () => {
+    const savedFilesContainer = document.getElementById('savedFiles');
+    const savedFilesKey = 'savedFiles';
+    let savedFiles = JSON.parse(localStorage.getItem(savedFilesKey)) || [];
 
-const categoriesKey = 'categories';
-let categories = JSON.parse(localStorage.getItem(categoriesKey)) || [];
+    const categoriesKey = 'categories';
+    let categories = JSON.parse(localStorage.getItem(categoriesKey)) || [];
 
+    document.getElementById('moduleForm').addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+        console.log('Form submitted'); // Add this line
 
-document.getElementById('moduleForm').addEventListener('submit', (event) => {
-    event.preventDefault();
+        const moduleNameElement = document.getElementById('name');
+        const thumbnailUrlElement = document.getElementById('icon');
+        const noteElement = document.getElementById('note');
+        const categoryElement = document.getElementById('category');
 
-    const moduleName = document.getElementById('name').value.trim();
-    const thumbnailUrl = document.getElementById('icon').value.trim();
-    const note = document.getElementById('note').value.trim();
-    const category = document.getElementById('category').value.trim();
+        if (!moduleNameElement || !thumbnailUrlElement || !noteElement || !categoryElement) {
+            console.error('One or more required elements not found');
+            return;
+        }
 
-    if (!moduleName || !thumbnailUrl || !note) {
-        alert('Please fill in all fields');
-        return;
-    }
+        const moduleName = moduleNameElement.value.trim();
+        const thumbnailUrl = thumbnailUrlElement.value.trim();
+        const note = noteElement.value.trim();
+        const category = categoryElement.value.trim();
 
-    const id = Date.now().toString();
+        console.log('Form Values:', {
+            moduleName,
+            thumbnailUrl,
+            note,
+            category
+        }); // Log form values
 
-    savedFiles.push({ id, name: moduleName, thumbnailUrl, note, category });
-    localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
-    displaySavedFiles();
+        if (!moduleName || !thumbnailUrl || !note) {
+            alert('Please fill in all fields');
+            return;
+        }
 
-    document.getElementById('name').value = '';
-    document.getElementById('icon').value = '';
-    document.getElementById('note').value = '';
-    document.getElementById('category').value = '';
+        const id = Date.now().toString();
 
-    alert('Module added successfully');
-});
+        savedFiles.push({ id, name: moduleName, thumbnailUrl, note, category });
+        localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
+        console.log('Module saved to localStorage', savedFiles); // Add this line
 
-function displaySavedFiles() {
-    savedFilesContainer.innerHTML = '';
+        displaySavedFiles();
 
-    savedFiles.forEach((file) => {
-        const fileElement = createFileElement(file);
-        savedFilesContainer.appendChild(fileElement);
+        moduleNameElement.value = '';
+        thumbnailUrlElement.value = '';
+        noteElement.value = '';
+        categoryElement.value = '';
+
+        alert('Module added successfully');
     });
-}
-displaySavedFiles();
+
+    function displaySavedFiles() {
+        savedFilesContainer.innerHTML = '';
+
+        savedFiles.forEach((file) => {
+            const fileElement = createFileElement(file);
+            savedFilesContainer.appendChild(fileElement);
+        });
+
+        console.log('Displaying saved files:', savedFiles); // Add this line
+    }
+    displaySavedFiles();
 
 document.getElementById('categoryForm').addEventListener('submit', (event) => {
     event.preventDefault();
+
+    console.log('Form submitted');
 
     const newCategory = document.getElementById('newCategory').value.trim();
     const categoryColor = document.getElementById('categoryColor').value.trim();
@@ -68,15 +92,43 @@ document.getElementById('categoryForm').addEventListener('submit', (event) => {
 
 
 function populateCategoryDropdown() {
-    const categoryDropdown = document.getElementById('category');
-    categoryDropdown.innerHTML = '<option value="">Select Category (optional)</option>';
+    const categoryDropdown = document.getElementById('categoryDropdown');
+    const dropdownSelected = categoryDropdown.querySelector('.dropdown-selected');
+    const categoryList = categoryDropdown.querySelector('.dropdown-list');
+
+    if (!dropdownSelected || !categoryList) {
+        return; // Ensure the elements exist
+    }
+
+    dropdownSelected.textContent = 'Select Category (optional)'; // Reset the dropdown title
+    categoryList.innerHTML = ''; // Clear the category list
+
     categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.name;
-        option.text = category.name;
-        categoryDropdown.appendChild(option);
+        const categoryItem = document.createElement('div');
+        categoryItem.classList.add('category-item');
+
+        const categoryName = document.createElement('span');
+        categoryName.textContent = category.name;
+        categoryName.classList.add('category-name');
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('deleteButton', 'small');
+        deleteButton.addEventListener('click', () => {
+            deleteCategory(category.id);
+        });
+
+        categoryItem.appendChild(categoryName);
+        categoryItem.appendChild(deleteButton);
+        categoryList.appendChild(categoryItem);
+
+        categoryItem.addEventListener('click', () => {
+            dropdownSelected.textContent = category.name; // Update dropdown-selected with selected category
+            categoryDropdown.classList.remove('open');
+        });
     });
 }
+
 
 // Call populateCategoryDropdown initially to populate the list
 populateCategoryDropdown();
@@ -125,14 +177,14 @@ function createFileElement(file) {
     fileElement.appendChild(noteElement);
 
     const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('deleteButton');
-    deleteButton.addEventListener('click', () => {
+    deleteButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Stop event propagation
         savedFiles = savedFiles.filter(savedFile => savedFile.id !== file.id);
         localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
         displaySavedFiles();
         alert('Module deleted successfully');
     });
+    
     fileElement.appendChild(deleteButton);
 
     return fileElement;
@@ -228,49 +280,36 @@ function deleteCategory(categoryId) {
   // Call populateCategoryList initially to populate the list
   populateCategoryList();
   
-
   function populateCategoryDropdown() {
     const categoryDropdown = document.getElementById('categoryDropdown');
     const dropdownSelected = categoryDropdown.querySelector('.dropdown-selected');
-    const categoryList = categoryDropdown.querySelector('.dropdown-list');
+    const categoryDropdownList = categoryDropdown.querySelector('.dropdown-list');
 
-    if (!dropdownSelected || !categoryList) {
-        return; // Ensure the elements exist
-    }
-
-    dropdownSelected.textContent = 'Select Category (optional)'; // Reset the dropdown title
-    categoryList.innerHTML = ''; // Clear the category list
+    dropdownSelected.addEventListener('click', () => {
+        categoryDropdownList.classList.toggle('open');
+    });
 
     categories.forEach(category => {
-        const categoryItem = document.createElement('div');
-        categoryItem.classList.add('category-item');
+        const option = document.createElement('div');
+        option.classList.add('dropdown-option');
+        option.textContent = category.name;
 
-        const categoryName = document.createElement('span');
-        categoryName.textContent = category.name;
-        categoryName.classList.add('category-name');
-
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('deleteButton', 'small');
-        deleteButton.addEventListener('click', () => {
-            deleteCategory(category.id);
+        option.addEventListener('click', () => {
+            dropdownSelected.textContent = category.name + ' ' + ' &#9662;'; // Update selected category text
+            categoryDropdownList.classList.remove('open'); // Hide the dropdown list
         });
 
-        categoryItem.appendChild(categoryName);
-        categoryItem.appendChild(deleteButton);
-        categoryList.appendChild(categoryItem);
-
-        categoryItem.addEventListener('click', () => {
-            dropdownSelected.textContent = category.name;
-            categoryDropdown.classList.remove('open');
-        });
+        categoryDropdownList.appendChild(option);
     });
 }
 
-
-
 // Call populateCategoryDropdown initially to populate the list
 populateCategoryDropdown();
+
+// Toggle the dropdown list when the dropdown selected area is clicked
+document.querySelector('.dropdown-selected').addEventListener('click', function() {
+    document.querySelector('.custom-dropdown').classList.toggle('open');
+});
 
 function openEditModal(noteId) {
     const file = savedFiles.find(file => file.id === noteId);
@@ -304,3 +343,4 @@ function openModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.style.display = 'block';
 }
+});
