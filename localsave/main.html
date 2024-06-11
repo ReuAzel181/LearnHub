@@ -28,22 +28,24 @@
         </div>
         
         <!-- Modified module form to include the new category dropdown -->
-        <div class="form-group">
-          <h2>Add Module</h2>
-          <form id="moduleForm">
-            <input type="text" id="name" name="name" placeholder="Module Name" required>
-            <div id="thumbnailDropzone" class="dropzone">
-              <p>Drag & Drop Images Here or Enter Image URL:</p>
-              <input type="text" id="icon" name="icon" placeholder="Thumbnail URL">
-            </div>
-            <textarea id="note" name="note" placeholder="Note"></textarea>
-            <div class="custom-dropdown" id="categoryDropdown">
-              <div class="dropdown-selected">Select Category (optional) &#9662;</div>
-              <div class="dropdown-list" id="categoryDropdownList"></div>
-            </div>
-            <button type="submit">Add Module</button>
-          </form>
-        </div>
+        <!-- Modified module form to include the new category dropdown -->
+<div class="form-group">
+  <h2>Add Module</h2>
+  <form id="moduleForm">
+    <input type="text" id="name" name="name" placeholder="Module Name" required>
+    <div id="thumbnailDropzone" class="dropzone">
+      <p>Drag & Drop Images Here or Enter Image URL:</p>
+      <input type="text" id="icon" name="icon" placeholder="Thumbnail URL">
+    </div>
+    <textarea id="note" name="note" placeholder="Note"></textarea>
+    <select id="category" name="category">
+      <option value="">Select Category (optional)</option>
+      <!-- Categories will be added dynamically here -->
+    </select>
+    <button type="submit">Add Module</button>
+  </form>
+</div>
+
       </div>
       <div class="right-container">
         <div id="calendar">

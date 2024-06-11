@@ -1,69 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const savedFilesContainer = document.getElementById('savedFiles');
-    const savedFilesKey = 'savedFiles';
-    let savedFiles = JSON.parse(localStorage.getItem(savedFilesKey)) || [];
+const savedFilesContainer = document.getElementById('savedFiles');
+const savedFilesKey = 'savedFiles';
+let savedFiles = JSON.parse(localStorage.getItem(savedFilesKey)) || [];
 
-    const categoriesKey = 'categories';
-    let categories = JSON.parse(localStorage.getItem(categoriesKey)) || [];
+const categoriesKey = 'categories';
+let categories = JSON.parse(localStorage.getItem(categoriesKey)) || [];
 
-    document.getElementById('moduleForm').addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
-        console.log('Form submitted'); // Add this line
 
-        const moduleNameElement = document.getElementById('name');
-        const thumbnailUrlElement = document.getElementById('icon');
-        const noteElement = document.getElementById('note');
-        const categoryElement = document.getElementById('category');
+document.getElementById('moduleForm').addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
 
-        if (!moduleNameElement || !thumbnailUrlElement || !noteElement || !categoryElement) {
-            console.error('One or more required elements not found');
-            return;
-        }
+    const moduleNameElement = document.getElementById('name');
+    const thumbnailUrlElement = document.getElementById('icon');
+    const noteElement = document.getElementById('note');
+    const categoryElement = document.getElementById('category');
 
-        const moduleName = moduleNameElement.value.trim();
-        const thumbnailUrl = thumbnailUrlElement.value.trim();
-        const note = noteElement.value.trim();
-        const category = categoryElement.value.trim();
-
-        console.log('Form Values:', {
-            moduleName,
-            thumbnailUrl,
-            note,
-            category
-        }); // Log form values
-
-        if (!moduleName || !thumbnailUrl || !note) {
-            alert('Please fill in all fields');
-            return;
-        }
-
-        const id = Date.now().toString();
-
-        savedFiles.push({ id, name: moduleName, thumbnailUrl, note, category });
-        localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
-        console.log('Module saved to localStorage', savedFiles); // Add this line
-
-        displaySavedFiles();
-
-        moduleNameElement.value = '';
-        thumbnailUrlElement.value = '';
-        noteElement.value = '';
-        categoryElement.value = '';
-
-        alert('Module added successfully');
-    });
-
-    function displaySavedFiles() {
-        savedFilesContainer.innerHTML = '';
-
-        savedFiles.forEach((file) => {
-            const fileElement = createFileElement(file);
-            savedFilesContainer.appendChild(fileElement);
-        });
-
-        console.log('Displaying saved files:', savedFiles); // Add this line
+    if (!moduleNameElement || !thumbnailUrlElement || !noteElement) {
+        console.error('One or more required elements not found');
+        return;
     }
+
+    const moduleName = moduleNameElement.value.trim();
+    const thumbnailUrl = thumbnailUrlElement.value.trim();
+    const note = noteElement.value.trim();
+    const category = categoryElement.value.trim();
+
+    if (!moduleName || !thumbnailUrl || !note) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    const id = Date.now().toString();
+
+    savedFiles.push({ id, name: moduleName, thumbnailUrl, note, category });
+    localStorage.setItem(savedFilesKey, JSON.stringify(savedFiles));
     displaySavedFiles();
+
+    moduleNameElement.value = '';
+    thumbnailUrlElement.value = '';
+    noteElement.value = '';
+    categoryElement.value = '';
+
+    alert('Module added successfully');
+});
+
+
+function displaySavedFiles() {
+    savedFilesContainer.innerHTML = '';
+
+    savedFiles.forEach((file) => {
+        const fileElement = createFileElement(file);
+        savedFilesContainer.appendChild(fileElement);
+    });
+}
+displaySavedFiles();
 
 document.getElementById('categoryForm').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -128,11 +118,6 @@ function populateCategoryDropdown() {
         });
     });
 }
-
-
-// Call populateCategoryDropdown initially to populate the list
-populateCategoryDropdown();
-
 
 
 function createFileElement(file) {
@@ -280,29 +265,28 @@ function deleteCategory(categoryId) {
   // Call populateCategoryList initially to populate the list
   populateCategoryList();
   
-  function populateCategoryDropdown() {
-    const categoryDropdown = document.getElementById('categoryDropdown');
-    const dropdownSelected = categoryDropdown.querySelector('.dropdown-selected');
-    const categoryDropdownList = categoryDropdown.querySelector('.dropdown-list');
+ function populateCategoryDropdown() {
+        const categoryDropdown = document.getElementById('categoryDropdown');
+        const dropdownSelected = categoryDropdown.querySelector('.dropdown-selected');
+        const categoryDropdownList = categoryDropdown.querySelector('.dropdown-list');
 
-    dropdownSelected.addEventListener('click', () => {
-        categoryDropdownList.classList.toggle('open');
-    });
-
-    categories.forEach(category => {
-        const option = document.createElement('div');
-        option.classList.add('dropdown-option');
-        option.textContent = category.name;
-
-        option.addEventListener('click', () => {
-            dropdownSelected.textContent = category.name + ' ' + ' &#9662;'; // Update selected category text
-            categoryDropdownList.classList.remove('open'); // Hide the dropdown list
+        dropdownSelected.addEventListener('click', () => {
+            categoryDropdownList.classList.toggle('open');
         });
 
-        categoryDropdownList.appendChild(option);
-    });
-}
+        categories.forEach(category => {
+            const option = document.createElement('div');
+            option.classList.add('dropdown-option');
+            option.textContent = category.name;
 
+            option.addEventListener('click', () => {
+                dropdownSelected.textContent = category.name + ' ' + ' &#9662;'; // Update selected category text
+                categoryDropdownList.classList.remove('open'); // Hide the dropdown list
+            });
+
+            categoryDropdownList.appendChild(option);
+        });
+    } 
 // Call populateCategoryDropdown initially to populate the list
 populateCategoryDropdown();
 
