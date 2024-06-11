@@ -2,7 +2,9 @@ const savedFilesContainer = document.getElementById('savedFiles');
 const savedFilesKey = 'savedFiles';
 let savedFiles = JSON.parse(localStorage.getItem(savedFilesKey)) || [];
 
-displaySavedFiles();
+const categoriesKey = 'categories';
+let categories = JSON.parse(localStorage.getItem(categoriesKey)) || [];
+
 
 document.getElementById('moduleForm').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -39,12 +41,54 @@ function displaySavedFiles() {
         savedFilesContainer.appendChild(fileElement);
     });
 }
+displaySavedFiles();
+
+document.getElementById('categoryForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const newCategory = document.getElementById('newCategory').value.trim();
+    const categoryColor = document.getElementById('categoryColor').value.trim();
+
+    if (!newCategory) {
+        alert('Please enter a category name');
+        return;
+    }
+
+    categories.push({ id: Date.now().toString(), name: newCategory, color: categoryColor });
+    localStorage.setItem(categoriesKey, JSON.stringify(categories));
+
+    populateCategoryDropdown(); // Add this line to update the dropdown
+    populateCategoryList(); // Update the list of categories
+
+    document.getElementById('newCategory').value = '';
+    document.getElementById('categoryColor').value = '#ffffff';
+
+    alert('Category added successfully');
+});
+
+
+function populateCategoryDropdown() {
+    const categoryDropdown = document.getElementById('category');
+    categoryDropdown.innerHTML = '<option value="">Select Category (optional)</option>';
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.name;
+        option.text = category.name;
+        categoryDropdown.appendChild(option);
+    });
+}
+
+// Call populateCategoryDropdown initially to populate the list
+populateCategoryDropdown();
+
+
 
 function createFileElement(file) {
     const fileElement = document.createElement('div');
     fileElement.classList.add('savedFile');
-    if (file.category) {
-        fileElement.classList.add(file.category);
+    const category = categories.find(c => c.name === file.category);
+    if (category) {
+        fileElement.style.backgroundColor = category.color;
     }
     fileElement.dataset.id = file.id;
 
@@ -127,6 +171,106 @@ thumbnailDropzone.addEventListener('drop', function(event) {
         reader.readAsDataURL(droppedFile);
     }
 });
+function deleteCategory(categoryId) {
+    if (confirm("Are you sure you want to delete this category?")) {
+        categories = categories.filter(category => category.id !== categoryId);
+        localStorage.setItem('categories', JSON.stringify(categories));
+        populateCategoryDropdown();
+        populateCategoryList(); // Update the list of categories
+    }
+}
+
+  function updateCategoryList() {
+    // Get the category list element
+    const categoryList = document.getElementById('categoryList');
+  
+    // Clear existing options
+    categoryList.innerHTML = '';
+  
+    // Get categories from storage
+    let categories = JSON.parse(localStorage.getItem('categories')) || [];
+  
+    // Add each category to the dropdown list
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.id;
+      option.text = category.name;
+      categoryList.appendChild(option);
+    });
+  }
+  
+
+  function populateCategoryList() {
+    const categoriesList = document.getElementById('categoryList');
+    categoriesList.innerHTML = '';
+
+    categories.forEach(category => {
+        const categoryItem = document.createElement('div');
+        categoryItem.classList.add('category-item');
+
+        const categoryName = document.createElement('span');
+        categoryName.textContent = category.name;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('deleteButton');
+        deleteButton.addEventListener('click', () => {
+            deleteCategory(category.id);
+        });
+
+        categoryItem.appendChild(categoryName);
+        categoryItem.appendChild(deleteButton);
+        categoriesList.appendChild(categoryItem);
+    });
+}
+
+  
+  // Call populateCategoryList initially to populate the list
+  populateCategoryList();
+  
+
+  function populateCategoryDropdown() {
+    const categoryDropdown = document.getElementById('categoryDropdown');
+    const dropdownSelected = categoryDropdown.querySelector('.dropdown-selected');
+    const categoryList = categoryDropdown.querySelector('.dropdown-list');
+
+    if (!dropdownSelected || !categoryList) {
+        return; // Ensure the elements exist
+    }
+
+    dropdownSelected.textContent = 'Select Category (optional)'; // Reset the dropdown title
+    categoryList.innerHTML = ''; // Clear the category list
+
+    categories.forEach(category => {
+        const categoryItem = document.createElement('div');
+        categoryItem.classList.add('category-item');
+
+        const categoryName = document.createElement('span');
+        categoryName.textContent = category.name;
+        categoryName.classList.add('category-name');
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('deleteButton', 'small');
+        deleteButton.addEventListener('click', () => {
+            deleteCategory(category.id);
+        });
+
+        categoryItem.appendChild(categoryName);
+        categoryItem.appendChild(deleteButton);
+        categoryList.appendChild(categoryItem);
+
+        categoryItem.addEventListener('click', () => {
+            dropdownSelected.textContent = category.name;
+            categoryDropdown.classList.remove('open');
+        });
+    });
+}
+
+
+
+// Call populateCategoryDropdown initially to populate the list
+populateCategoryDropdown();
 
 function openEditModal(noteId) {
     const file = savedFiles.find(file => file.id === noteId);

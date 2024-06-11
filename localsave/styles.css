@@ -85,10 +85,16 @@ form {
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
 }
 
 input[type="text"],
-textarea {
+textarea,
+select {
   width: calc(100% - 40px);
   padding: 15px;
   margin-bottom: 20px;
@@ -98,8 +104,39 @@ textarea {
 }
 
 input[type="text"]:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   border-color: #4682b4; /* Steel Blue */
+}
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.color-picker-container label {
+  margin-right: 10px;
+}
+
+input[type="color"] {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+}
+
+input[type="color"]:hover {
+  border-color: #87ceeb; /* Sky Blue */
+}
+
+select {
+  height: 50px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 button {
@@ -204,17 +241,52 @@ button:hover {
   text-decoration: none;
   cursor: pointer;
 }
-.savedFile.category1 {
-  background-color: #ffcccc; /* Light Red */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 200px;
 }
 
-.savedFile.category2 {
-  background-color: #ccffcc; /* Light Green */
+.dropdown-selected {
+  padding: 10px 30px 10px 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-between; /* Align text to the left and icon to the right */
+  align-items: center; /* Vertically center items */
 }
 
-.savedFile.category3 {
-  background-color: #ccccff; /* Light Blue */
+.dropdown-list {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1;
 }
+
+.category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align items to the left and right */
+  padding: 10px;
+}
+
+.category-name {
+  flex: 1; /* Allow the category name to take up remaining space */
+}
+
+.category-item:hover {
+  background-color: #f9f9f9;
+}
+
+.delete-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -230,6 +302,4 @@ button:hover {
   .savedFiles-container {
     grid-template-columns: 1fr;
   }
-
-
 }
