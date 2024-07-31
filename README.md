@@ -9,16 +9,16 @@ LearnHub is a web application designed to manage and organize learning modules. 
 
 ## Usage
 1. Adding Categories:
-  - Use the category management interface to add new categories. These categories will be available for selection when creating or editing learning modules.
+    - Use the category management interface to add new categories. These categories will be available for selection when creating or editing learning modules.
 
 2. Uploading Files:
-  - When creating a new module, you can upload files which will be associated with that module. Supported file types include images, PDFs, and DOC files.
+    - When creating a new module, you can upload files which will be associated with that module. Supported file types include images, PDFs, and DOC files.
 
 3. Managing Modules:
-  - Create, view, and manage learning modules. Each module can be associated with a category and files.
+    - Create, view, and manage learning modules. Each module can be associated with a category and files.
 
 4. Calendar Integration:
-  - Set deadlines for modules and view their creation dates. This helps in tracking module progress and deadlines.
+    - Set deadlines for modules and view their creation dates. This helps in tracking module progress and deadlines.
 
 **Contributing**
   - Feel free to contribute to the project by submitting issues or pull requests. We welcome any improvements or bug fixes!
