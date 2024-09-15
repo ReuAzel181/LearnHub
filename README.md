@@ -26,11 +26,11 @@ LearnHub is a web application designed to manage and organize learning modules. 
 **License**
   - This project is licensed under the MIT License. See the LICENSE file for more details.
 
-### Contact
-    For any questions or feedback, please reach out to:
+## Contact
+For any questions or feedback, please reach out to:
 
-**Author:** ReuAzel181
+Author: **ReuAzel181**
 
-**Email:** reyuasel@gmail.com 
+Email: **reyuasel@gmail.com**
 
-- Thank you for checking out the 2D Game Platformer project!
+Thank you for checking out the Iconifier project!
