@@ -1,0 +1,145 @@
+/* Calendar Widget */
+.calendar-widget {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.calendar-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.calendar-nav button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.calendar-nav button:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+.calendar-widget table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.25rem;
+}
+
+.calendar-widget th,
+.calendar-widget td {
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.calendar-widget th {
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.calendar-widget td {
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.calendar-widget td:hover {
+    background-color: var(--background-color);
+}
+
+.calendar-widget .today {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.calendar-widget .has-event {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.calendar-widget .has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.25rem;
+    height: 0.25rem;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.calendar-widget .other-month {
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Event Tooltip */
+.calendar-event-tooltip {
+    background-color: var(--card-background);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 1rem;
+    max-width: 300px;
+}
+
+.event-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.event-time {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.event-description {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .calendar-widget {
+        padding: 1rem;
+    }
+
+    .calendar-widget th,
+    .calendar-widget td {
+        padding: 0.5rem;
+    }
+
+    .calendar-title {
+        font-size: 1rem;
+    }
+} 
