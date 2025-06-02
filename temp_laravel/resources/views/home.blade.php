@@ -12,58 +12,11 @@
             <p class="text-secondary">Your Learning Workspace</p>
         </div>
 
-        <div class="nav-section">
-            <h2 class="nav-title">Quick Actions</h2>
-            <button class="action-btn" onclick="createNewNote()">
-                <i class="fas fa-pen-to-square"></i>
-                <span>New Note</span>
-            </button>
-            <button class="action-btn" onclick="openDrawingBoard()">
-                <i class="fas fa-paintbrush"></i>
-                <span>Draw</span>
-            </button>
-            <button class="action-btn" onclick="openCalculator()">
-                <i class="fas fa-calculator"></i>
-                <span>Calculator</span>
-            </button>
-        </div>
 
-        <div class="nav-section">
-            <h2 class="nav-title">Categories</h2>
-            <div class="category-form">
-                <div class="input-group">
-                    <input type="text" id="newCategory" class="form-control" placeholder="New Category">
-                    <input type="color" id="categoryColor" value="#4f46e5" title="Category Color">
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus"></i>
-                    Add
-                </button>
-            </div>
-            <div class="category-list" id="categoryList">
-                <!-- Categories will be listed here -->
-            </div>
-        </div>
 
-        <div class="nav-section">
-            <h2 class="nav-title">Tools</h2>
-            <button class="tool-btn" onclick="openLibrary()">
-                <i class="fas fa-book"></i>
-                <span>Library</span>
-            </button>
-            <button class="tool-btn" onclick="openFlashcards()">
-                <i class="fas fa-layer-group"></i>
-                <span>Flashcards</span>
-            </button>
-            <button class="tool-btn" onclick="openPomodoro()">
-                <i class="fas fa-clock"></i>
-                <span>Pomodoro</span>
-            </button>
-            <button class="tool-btn" onclick="openTasks()">
-                <i class="fas fa-list-check"></i>
-                <span>Tasks</span>
-            </button>
-        </div>
+       
+
+        
     </aside>
 
     <!-- Main Content Area -->
