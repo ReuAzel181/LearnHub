@@ -11,10 +11,10 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-50">
+<body style="background-color: #FFDDDD;">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r border-gray-100 fixed h-full">
+        <aside class="w-64 bg-white fixed h-full">
             <div class="flex flex-col h-full">
                 <!-- Logo Section -->
                 <div class="p-4 flex items-center space-x-4">
@@ -41,7 +41,7 @@
                     <!-- Reminders Section -->
                     <div class="mb-8">
                         <h2 class="text-xl font-bold mb-4">Reminders</h2>
-                        <div class="bg-gray-200 p-4 rounded-lg h-32"></div>
+                        <div class="bg-gray-200 p-4 rounded-lg h-24"></div>
                     </div>
 
                     <!-- Active Users Section -->
@@ -67,7 +67,7 @@
         <!-- Main Content -->
         <div class="flex-1 ml-64">
             <!-- Header -->
-            <header class="h-16 bg-white border-b border-gray-100 fixed w-full z-10 pr-64">
+            <header class="h-16 bg-white fixed w-full z-10 pr-64">
                 <div class="flex items-center justify-between h-full px-4">
                     <div class="flex-1 max-w-3xl">
                         <div class="relative">
@@ -103,23 +103,23 @@
             <main class="pt-20 px-6">
                 <!-- Quick Action Cards -->
                 <div class="grid grid-cols-4 gap-4 mb-8">
-                    <div class="bg-[#E5ED5C] p-6 rounded-lg flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-[#E5ED5C] p-6 rounded-lg flex items-center justify-center cursor-pointer">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </div>
-                    <div class="bg-[#86F777] p-6 rounded-lg flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-[#86F777] p-6 rounded-lg flex items-center justify-center cursor-pointer">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                         </svg>
                     </div>
-                    <div class="bg-[#59C1F9] p-6 rounded-lg flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-[#59C1F9] p-6 rounded-lg flex items-center justify-center cursor-pointer">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                         </svg>
                     </div>
-                    <div class="bg-[#FF6B6B] p-6 rounded-lg flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-[#FF6B6B] p-6 rounded-lg flex items-center justify-center cursor-pointer">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
                     </div>
@@ -130,12 +130,12 @@
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-2xl font-semibold">Notes</h2>
                         <div class="flex items-center space-x-2">
-                            <button class="p-2 hover:bg-gray-50 rounded-lg">
+                            <button class="p-2 hover:bg-gray-50 rounded-lg sort-notes-btn">
                                 <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>
                                 </svg>
                             </button>
-                            <button class="p-2 hover:bg-gray-50 rounded-lg">
+                            <button class="p-2 hover:bg-gray-50 rounded-lg view-toggle-btn">
                                 <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                                 </svg>
@@ -150,17 +150,17 @@
                                 <div class="text-blue-500 mb-1 text-sm">January 1</div>
                                 <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet</p>
                                 <div class="flex items-center justify-end mt-2 space-x-1">
-                                    <button class="p-1.5 hover:bg-gray-200 rounded">
+                                    <button class="p-1.5 hover:bg-gray-200 rounded note-action-btn" data-action="pin">
                                         <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                         </svg>
                                     </button>
-                                    <button class="p-1.5 hover:bg-gray-200 rounded">
+                                    <button class="p-1.5 hover:bg-gray-200 rounded note-action-btn" data-action="edit">
                                         <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                         </svg>
                                     </button>
-                                    <button class="p-1.5 hover:bg-gray-200 rounded">
+                                    <button class="p-1.5 hover:bg-gray-200 rounded note-action-btn" data-action="more">
                                         <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
                                         </svg>

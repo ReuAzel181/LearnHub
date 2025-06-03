@@ -5,6 +5,7 @@
 @layer base {
     body {
         @apply antialiased text-gray-800;
+        background-color: #FFDDDD;
     }
 }
 
@@ -37,6 +38,44 @@
 
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-300;
+}
+
+/* Card colors */
+.card-yellow {
+    background-color: #E5ED5C;
+}
+
+.card-green {
+    background-color: #86F777;
+}
+
+.card-blue {
+    background-color: #59C1F9;
+}
+
+.card-red {
+    background-color: #FF6B6B;
+}
+
+/* Note styles */
+.note-item {
+    @apply bg-gray-100 p-4 rounded-lg;
+}
+
+.note-date {
+    @apply text-blue-500 mb-1 text-sm;
+}
+
+.note-content {
+    @apply text-gray-600 text-sm;
+}
+
+.note-actions {
+    @apply flex items-center justify-end mt-2 space-x-1;
+}
+
+.note-action-btn {
+    @apply p-1.5 hover:bg-gray-200 rounded;
 }
 
 /* Transitions */
