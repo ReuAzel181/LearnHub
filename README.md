@@ -1,30 +1,55 @@
-# LearnHub
-LearnHub is a web application designed to manage and organize learning modules. It features a dynamic category management system, file uploads, and calendar integration for scheduling and tracking educational content.
+# LearnHub - Student Productivity Suite
+
+LearnHub is an all-in-one productivity app designed for high school and college students. It combines essential study tools into a clean, minimalist interface with a focus on accessibility and offline functionality.
 
 ## Features
-  - **Dynamic Category Management:** Add, edit, and delete categories. Categories are used to organize learning modules.
- - **File Uploads:** Upload and manage files associated with learning modules, including images and documents.
- - **Calendar Integration:** Set deadlines and view creation dates for learning modules.
- - **Category Toggle:** Show or hide the list of categories with a toggle button.
 
-## Usage
-1. Adding Categories:
-  - Use the category management interface to add new categories. These categories will be available for selection when creating or editing learning modules.
+- 📱 Mobile-first, responsive design
+- 🌓 Dark mode support
+- 🔄 Offline functionality
+- 🎯 Study-focused tools:
+  - Scientific Calculator
+  - Distraction-free Notepad
+  - Calendar & Reminders
+  - Flashcards with Spaced Repetition
+  - Group Chat
+  - Pomodoro Timer
 
-2. Uploading Files:
-  - When creating a new module, you can upload files which will be associated with that module. Supported file types include images, PDFs, and DOC files.
+## Tech Stack
 
-3. Managing Modules:
-  - Create, view, and manage learning modules. Each module can be associated with a category and files.
+- Next.js 14 with TypeScript
+- Tailwind CSS for styling
+- Radix UI for accessible components
+- Next-themes for dark mode
+- Zustand for state management
 
-4. Calendar Integration:
-  - Set deadlines for modules and view their creation dates. This helps in tracking module progress and deadlines.
+## Getting Started
 
-**Contributing**
-  - Feel free to contribute to the project by submitting issues or pull requests. We welcome any improvements or bug fixes!
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/learnhub.git
+cd learnhub
+```
 
-**License**
-  - This project is licensed under the MIT License. See the LICENSE file for more details.
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 For any questions or feedback, please reach out to:
