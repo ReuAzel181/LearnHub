@@ -1,252 +1,354 @@
 <!DOCTYPE html>
-<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LearnHub</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <style>
             :root {
-                --primary-color: #3498db;
-                --primary-dark: #2980b9;
-                --success-color: #2ecc71;
-                --warning-color: #f1c40f;
-                --danger-color: #e74c3c;
-                --text-dark: #2c3e50;
-                --text-light: #95a5a6;
-                --bg-light: #f8f9fa;
-                --border-color: #eee;
+                /* Light theme */
+                --bg-main: #f8f9fa;
+                --bg-card: #ffffff;
+                --bg-sidebar: #ffffff;
+                --bg-hover: #f0f2f5;
+                --bg-active: #e7f3ff;
+                --text-primary: #1a1a1a;
+                --text-secondary: #65676b;
+                --text-active: #0d6efd;
+                --border-color: #e4e6eb;
+                --shadow-color: rgba(0, 0, 0, 0.1);
                 
-                --spacing-xs: 0.25rem;
-                --spacing-sm: 0.5rem;
-                --spacing-md: 1rem;
-                --spacing-lg: 1.5rem;
-                --spacing-xl: 2rem;
+                /* Sidebar dimensions */
+                --sidebar-min-width: 280px;
+                --sidebar-max-width: 500px;
+                --sidebar-collapsed-width: 70px;
+                --header-height: 60px;
+                --transition-speed: 0.3s;
+            }
 
-                --radius-sm: 8px;
-                --radius-md: 12px;
-                --radius-lg: 16px;
-
-                --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-                --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            /* Dark theme */
+            [data-theme="dark"] {
+                --bg-main: #18191a;
+                --bg-card: #242526;
+                --bg-sidebar: #242526;
+                --bg-hover: #3a3b3c;
+                --bg-active: #263951;
+                --text-primary: #e4e6eb;
+                --text-secondary: #b0b3b8;
+                --border-color: #3e4042;
+                --shadow-color: rgba(0, 0, 0, 0.3);
             }
 
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             }
 
             body {
-                background: var(--bg-light);
-                color: var(--text-dark);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                background: var(--bg-main);
+                color: var(--text-primary);
                 line-height: 1.5;
             }
 
-            /* Layout */
-            .container {
-                display: flex;
-                margin-top: 64px;
-                min-height: calc(100vh - 64px);
-            }
-
-            /* Sidebar */
-            .sidebar {
-                width: 280px;
-                background: white;
-                border-right: 1px solid var(--border-color);
-                padding: var(--spacing-lg);
-                height: calc(100vh - 64px);
-                position: fixed;
-                overflow-y: auto;
-            }
-
-            .section-title {
-                font-size: 0.9rem;
-                font-weight: 600;
-                color: var(--text-light);
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                margin-bottom: var(--spacing-md);
-            }
-
-            /* Main Content */
             .main-content {
-                flex: 1;
-                padding: var(--spacing-xl);
-                margin-left: 280px;
+                margin-left: var(--sidebar-min-width);
+                margin-top: var(--header-height);
+                padding: 2rem;
+                min-height: calc(100vh - var(--header-height));
+                transition: margin-left var(--transition-speed) ease;
+                background: var(--bg-main);
             }
 
-            .content-header {
-                margin-bottom: var(--spacing-xl);
+            .main-content.sidebar-collapsed {
+                margin-left: var(--sidebar-collapsed-width);
+            }
+
+            .welcome-text {
+                font-size: 1.5rem;
+                color: var(--text-primary);
+                margin-bottom: 2rem;
+            }
+
+            .tools-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .tool-card {
+                background: var(--bg-card);
+                border-radius: 12px;
+                padding: 1.5rem;
+                text-align: center;
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                border: 1px solid var(--border-color);
+            }
+
+            .tool-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px var(--shadow-color);
+            }
+
+            .tool-icon {
+                font-size: 2rem;
+                color: var(--text-active);
+                margin-bottom: 1rem;
+            }
+
+            .tool-title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: var(--text-primary);
+            }
+
+            .tool-description {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+            }
+
+            .saved-notes {
+                background: var(--bg-card);
+                border-radius: 12px;
+                padding: 1.5rem;
+                border: 1px solid var(--border-color);
+            }
+
+            .saved-notes h2 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+                color: var(--text-primary);
+            }
+
+            .saved-note-item {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+
+            .saved-note-item:last-child {
+                border-bottom: none;
+            }
+
+            .saved-note-item:hover {
+                background: var(--bg-hover);
+            }
+
+            .saved-note-title {
+                font-weight: 500;
+                color: var(--text-primary);
+            }
+
+            .saved-note-date {
+                color: var(--text-secondary);
+                font-size: 0.875rem;
+            }
+
+            @media (max-width: 768px) {
+                .main-content {
+                    margin-left: 0;
+                    padding: 1rem;
+                }
+
+                .main-content.sidebar-collapsed {
+                    margin-left: 0;
+                }
+
+                .tools-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .tool-content {
+                display: none;
+                background: var(--bg-card);
+                border-radius: 12px;
+                padding: 1.5rem;
+                margin-top: 1rem;
+                border: 1px solid var(--border-color);
             }
 
             #section-title {
                 font-size: 1.5rem;
-                font-weight: 600;
-                color: var(--text-dark);
+                margin-bottom: 1rem;
+                color: var(--text-primary);
             }
 
-            .exit-button {
-                padding: var(--spacing-sm) var(--spacing-lg);
-                border-radius: var(--radius-sm);
+            #exit-button {
+                position: fixed;
+                top: calc(var(--header-height) + 1rem);
+                right: 1rem;
+                padding: 0.5rem 1rem;
+                background: var(--bg-card);
                 border: 1px solid var(--border-color);
-                background: white;
-                color: var(--text-dark);
+                border-radius: 8px;
+                color: var(--text-primary);
                 cursor: pointer;
                 display: none;
                 align-items: center;
-                gap: var(--spacing-sm);
-                transition: all 0.2s;
+                gap: 0.5rem;
+                z-index: 10;
+                transition: all 0.2s ease;
             }
 
-            .exit-button:hover {
-                background: var(--bg-light);
-            }
-
-            /* Dashboard Cards */
-            .action-buttons {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: var(--spacing-lg);
-            }
-
-            .action-button {
-                background: white;
-                border-radius: var(--radius-lg);
-                padding: var(--spacing-xl);
-                cursor: pointer;
-                transition: all 0.3s;
-                border: 1px solid var(--border-color);
-                text-align: center;
-            }
-
-            .action-button:hover {
-                transform: translateY(-4px);
-                box-shadow: var(--shadow-md);
-            }
-
-            .button-content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: var(--spacing-md);
-            }
-
-            .button-content i {
-                font-size: 2rem;
-                color: var(--primary-color);
-            }
-
-            .button-text {
-                font-size: 1.2rem;
-                font-weight: 600;
-                color: var(--text-dark);
-            }
-
-            .button-description {
-                font-size: 0.9rem;
-                color: var(--text-light);
-            }
-
-            /* Tool Content */
-            .tool-content {
-                display: none;
-            }
-
-            @media (max-width: 768px) {
-                .sidebar {
-                    display: none;
-                }
-                
-                .main-content {
-                    margin-left: 0;
-                }
+            #exit-button:hover {
+                background: var(--bg-hover);
+                color: var(--text-active);
             }
         </style>
     </head>
     <body>
-        <!-- Header -->
-        <?php echo $__env->make('components.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('components.layout.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('components.layout.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-        <!-- Main Container -->
-        <div class="container">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="recent">
-                    <h2 class="section-title">Recent</h2>
-                    <div id="recent-items"></div>
-                </div>
-
-                <div class="reminders">
-                    <h2 class="section-title">Reminders</h2>
-                    <div id="reminder-items"></div>
-                </div>
-
-                <div class="active-users">
-                    <h2 class="section-title">Active Users</h2>
-                    <div id="active-users-list"></div>
-                </div>
-            </aside>
-
-            <!-- Main Content -->
-            <main class="main-content">
-                <div class="content-header">
-                    <div id="section-title">Dashboard</div>
-                    <button id="exit-button" class="exit-button" onclick="showDashboard()">
-                        <i class="fas fa-times"></i> Exit
-                    </button>
-                </div>
-
-                <!-- Dashboard Content -->
-                <div id="dashboard-content">
-                    <div class="action-buttons">
-                        <div class="action-button" onclick="switchContent('notes')">
-                            <div class="button-content">
-                                <i class="fas fa-sticky-note"></i>
-                                <span class="button-text">Notes</span>
-                                <span class="button-description">Create and manage your study notes</span>
-                            </div>
-                        </div>
-                        <div class="action-button" onclick="switchContent('draw')">
-                            <div class="button-content">
-                                <i class="fas fa-paint-brush"></i>
-                                <span class="button-text">Draw</span>
-                                <span class="button-description">Sketch and illustrate your ideas</span>
-                            </div>
-                        </div>
-                        <div class="action-button" onclick="switchContent('calculator')">
-                            <div class="button-content">
-                                <i class="fas fa-calculator"></i>
-                                <span class="button-text">Calculator</span>
-                                <span class="button-description">Solve mathematical problems</span>
-                            </div>
-                        </div>
-                        <div class="action-button" onclick="switchContent('dictionary')">
-                            <div class="button-content">
-                                <i class="fas fa-book"></i>
-                                <span class="button-text">Dictionary</span>
-                                <span class="button-description">Look up word definitions</span>
-                            </div>
-                        </div>
+        <main class="main-content">
+            <div id="dashboard-content">
+                <h1 class="welcome-text">Welcome to LearnHub! Select a tool to get started.</h1>
+                
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="switchContent('notes')">
+                        <i class="fas fa-sticky-note tool-icon"></i>
+                        <h2 class="tool-title">Notes</h2>
+                        <p class="tool-description">Create and manage your study notes</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="switchContent('draw')">
+                        <i class="fas fa-paint-brush tool-icon"></i>
+                        <h2 class="tool-title">Draw</h2>
+                        <p class="tool-description">Sketch and illustrate your ideas</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="switchContent('calculator')">
+                        <i class="fas fa-calculator tool-icon"></i>
+                        <h2 class="tool-title">Calculator</h2>
+                        <p class="tool-description">Solve mathematical problems</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="switchContent('dictionary')">
+                        <i class="fas fa-book tool-icon"></i>
+                        <h2 class="tool-title">Dictionary</h2>
+                        <p class="tool-description">Look up word definitions</p>
                     </div>
                 </div>
 
-                <!-- Tool Components -->
-                <?php echo $__env->make('components.notes', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                <?php echo $__env->make('components.draw', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                <?php echo $__env->make('components.calculator', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                <?php echo $__env->make('components.dictionary', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </main>
-        </div>
+                <div class="saved-notes">
+                    <h2>Saved Notes</h2>
+                    <div id="savedNotesList"></div>
+                </div>
+            </div>
+
+            <!-- Include component content directly -->
+            <?php echo $__env->make('components.notes', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php echo $__env->make('components.draw', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php echo $__env->make('components.calculator', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php echo $__env->make('components.dictionary', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+            <button id="exit-button" onclick="showDashboard()">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </button>
+        </main>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                showDashboard();
+                // Theme handling
+                const themeToggle = document.getElementById('theme-toggle');
+                const themeIcon = themeToggle.querySelector('i');
+                
+                // Load saved theme
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.body.setAttribute('data-theme', savedTheme);
+                updateThemeIcon(savedTheme);
+                
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = document.body.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    
+                    document.body.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeIcon(newTheme);
+                });
+                
+                function updateThemeIcon(theme) {
+                    themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+                }
+                
+                // Sidebar resize handling
+                const sidebar = document.querySelector('.app-sidebar');
+                const resizer = document.querySelector('.sidebar-resizer');
+                let isResizing = false;
+                
+                // Load saved sidebar width
+                const savedWidth = localStorage.getItem('sidebarWidth');
+                const isSidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (savedWidth && !isSidebarCollapsed) {
+                    sidebar.style.width = savedWidth + 'px';
+                }
+                
+                resizer.addEventListener('mousedown', initResize);
+                
+                function initResize(e) {
+                    isResizing = true;
+                    resizer.classList.add('dragging');
+                    document.addEventListener('mousemove', resize);
+                    document.addEventListener('mouseup', stopResize);
+                }
+                
+                function resize(e) {
+                    if (!isResizing) return;
+                    
+                    const minWidth = parseInt(getComputedStyle(document.documentElement)
+                        .getPropertyValue('--sidebar-min-width'));
+                    const maxWidth = parseInt(getComputedStyle(document.documentElement)
+                        .getPropertyValue('--sidebar-max-width'));
+                        
+                    let newWidth = e.clientX;
+                    newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+                    
+                    sidebar.style.width = newWidth + 'px';
+                    localStorage.setItem('sidebarWidth', newWidth);
+                }
+                
+                function stopResize() {
+                    isResizing = false;
+                    resizer.classList.remove('dragging');
+                    document.removeEventListener('mousemove', resize);
+                    document.removeEventListener('mouseup', stopResize);
+                }
+                
+                // Mobile menu handling
+                const menuToggle = document.querySelector('.menu-toggle');
+                
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('show');
+                });
+                
+                // Handle sidebar width changes
+                const mainContent = document.querySelector('.main-content');
+                const header = document.querySelector('.app-header');
+                
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                            const sidebarWidth = sidebar.style.width;
+                            if (sidebarWidth && !sidebar.classList.contains('collapsed')) {
+                                mainContent.style.marginLeft = sidebarWidth;
+                                header.style.left = sidebarWidth;
+                            }
+                        }
+                    });
+                });
+                
+                observer.observe(sidebar, { attributes: true });
             });
 
             function showDashboard() {
@@ -256,6 +358,13 @@
                 document.getElementById('dashboard-content').style.display = 'block';
                 document.getElementById('section-title').textContent = 'Dashboard';
                 document.getElementById('exit-button').style.display = 'none';
+                updateSavedNotesList();
+
+                // Update active state in sidebar
+                document.querySelectorAll('.nav-section li').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('.nav-section li:first-child').classList.add('active');
             }
 
             function switchContent(contentType) {
@@ -277,16 +386,55 @@
                 document.getElementById('section-title').textContent = titles[contentType];
                 document.getElementById('exit-button').style.display = 'flex';
 
+                // Update active state in sidebar
+                document.querySelectorAll('.nav-section li').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`.nav-section a[onclick*="${contentType}"]`).parentElement.classList.add('active');
+
+                // Close mobile menu
+                document.querySelector('.app-sidebar').classList.remove('show');
+
                 if (contentType === 'draw') {
                     initializeDrawingCanvas();
                 } else if (contentType === 'notes') {
                     loadSavedNotes();
                 } else if (contentType === 'dictionary') {
                     document.getElementById('word-search').focus();
+                } else if (contentType === 'calculator') {
+                    initializeCalculator();
                 }
             }
 
-            // Your existing JavaScript functions for tools...
+            function updateSavedNotesList() {
+                const savedNotes = JSON.parse(localStorage.getItem('learnhub_notes') || '[]');
+                const savedNotesList = document.getElementById('savedNotesList');
+                
+                if (savedNotesList) {
+                    savedNotesList.innerHTML = '';
+                    
+                    savedNotes.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                        .forEach(note => {
+                            const noteElement = document.createElement('div');
+                            noteElement.className = 'saved-note-item';
+                            noteElement.innerHTML = `
+                                <div class="saved-note-title">${note.title || 'Untitled'}</div>
+                                <div class="saved-note-date">${new Date(note.updatedAt).toLocaleDateString()}</div>
+                            `;
+                            
+                            noteElement.addEventListener('click', () => {
+                                switchContent('notes');
+                                setTimeout(() => loadNote(note.id), 100);
+                            });
+                            
+                            savedNotesList.appendChild(noteElement);
+                        });
+
+                    if (savedNotes.length === 0) {
+                        savedNotesList.innerHTML = '<div class="text-muted text-center p-4">No saved notes yet</div>';
+                    }
+                }
+            }
         </script>
     </body>
 </html> <?php /**PATH D:\XAMPP\htdocs\LearnHub\resources\views/welcome.blade.php ENDPATH**/ ?>

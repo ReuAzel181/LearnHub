@@ -15,3 +15,5 @@ vendor/
 
 # Ignore any .bak files
 *.bak
+
+*.next

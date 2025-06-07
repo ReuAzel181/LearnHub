@@ -1,4 +1,4 @@
-<!-- Dictionary Component -->
+<!-- URL: /dictionary -->
 <div id="dictionary-content" class="tool-content">
     <div class="dictionary-container">
         <div class="search-box">
@@ -11,6 +11,57 @@
         <div id="definition-result"></div>
     </div>
 </div>
+
+<script>
+function initializeDictionary() {
+    // Clear previous search
+    document.getElementById('word-search').value = '';
+    document.getElementById('definition-result').innerHTML = '';
+    
+    // Focus on search input
+    document.getElementById('word-search').focus();
+}
+
+async function searchWord() {
+    const word = document.getElementById('word-search').value.trim();
+    if (!word) return;
+    
+    const resultDiv = document.getElementById('definition-result');
+    resultDiv.innerHTML = '<p>Searching...</p>';
+    
+    try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+        const data = await response.json();
+        
+        if (response.ok) {
+            displayDefinitions(data);
+        } else {
+            resultDiv.innerHTML = `<div class="no-results">No definitions found for "${word}"</div>`;
+        }
+    } catch (error) {
+        resultDiv.innerHTML = '<div class="no-results">An error occurred while searching. Please try again.</div>';
+    }
+}
+
+function displayDefinitions(data) {
+    const resultDiv = document.getElementById('definition-result');
+    resultDiv.innerHTML = '';
+    
+    data[0].meanings.forEach(meaning => {
+        const meaningDiv = document.createElement('div');
+        meaningDiv.className = 'meaning';
+        
+        meaningDiv.innerHTML = `
+            <h4>${meaning.partOfSpeech}</h4>
+            <ul>
+                ${meaning.definitions.map(def => `<li>${def.definition}</li>`).join('')}
+            </ul>
+        `;
+        
+        resultDiv.appendChild(meaningDiv);
+    });
+}
+</script>
 
 <style>
 .dictionary-container {

@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { DashboardNav } from '@/components/dashboard-nav'
 import { Button } from '@/components/ui/button'
 import { Save, FolderPlus, Trash2, Edit2 } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 
 interface Note {
   id: string;
@@ -18,6 +19,31 @@ export default function NotesPage() {
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState<Note[]>([])
   const [editingNote, setEditingNote] = useState<Note | null>(null)
+  const searchParams = useSearchParams()
+
+  // Load notes from localStorage on initial render
+  useEffect(() => {
+    const savedNotes = localStorage.getItem('notes')
+    if (savedNotes) {
+      setNotes(JSON.parse(savedNotes))
+    }
+  }, [])
+
+  // Check for edit parameter in URL
+  useEffect(() => {
+    const editId = searchParams.get('edit')
+    if (editId && notes.length > 0) {
+      const noteToEdit = notes.find(note => note.id === editId)
+      if (noteToEdit) {
+        handleEdit(noteToEdit)
+      }
+    }
+  }, [notes, searchParams])
+
+  // Save notes to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes))
+  }, [notes])
 
   const handleSave = () => {
     if (!title.trim() || !content.trim()) return

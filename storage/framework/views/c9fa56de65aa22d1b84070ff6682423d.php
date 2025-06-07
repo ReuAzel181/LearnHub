@@ -1,4 +1,4 @@
-<!-- Calculator Component -->
+<!-- URL: /calculator -->
 <div id="calculator-content" class="tool-content">
     <div class="calculator">
         <div class="calc-display">
@@ -31,6 +31,34 @@
         </div>
     </div>
 </div>
+
+<script>
+function initializeCalculator() {
+    // Clear display
+    document.getElementById('calc-display').value = '';
+}
+
+function appendToCalc(value) {
+    const display = document.getElementById('calc-display');
+    display.value += value;
+}
+
+function clearCalc() {
+    document.getElementById('calc-display').value = '';
+}
+
+function calculateResult() {
+    const display = document.getElementById('calc-display');
+    try {
+        // Replace × with * and − with - for evaluation
+        const expression = display.value.replace(/×/g, '*').replace(/−/g, '-');
+        display.value = eval(expression);
+    } catch (error) {
+        display.value = 'Error';
+        setTimeout(clearCalc, 1000);
+    }
+}
+</script>
 
 <style>
 .calculator {
